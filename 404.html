@@ -8,72 +8,65 @@
         :root {
             --bg-color: #0b0b0c; --card-bg: #161618; --accent-color: #d4af37; 
             --text-color: #c0c0c0; --danger-color: #960000; --blood-red: #660000;
-            --gen1: #a29bfe; --gen2: #81ecec; --gen3: #ff7675; --gen4: #fab1a0;
+            --ming: #ffffff; --gen1: #a29bfe; --gen2: #81ecec; --gen3: #ff7675;
         }
         * { box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-color); font-family: "PingFang TC", "Noto Sans TC", sans-serif; margin: 0; line-height: 1.8; overflow-x: hidden; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: "PingFang TC", sans-serif; margin: 0; line-height: 1.8; overflow-x: hidden; }
         
-        /* 標題區塊 */
+        /* 主頁面樣式 */
         .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; transition: filter 1s; }
         header { text-align: center; margin-bottom: 60px; }
-        h1 { color: var(--accent-color); font-size: 3rem; letter-spacing: 12px; margin-bottom: 10px; text-shadow: 0 0 20px rgba(212,175,55,0.2); }
-        .main-divider { width: 150px; height: 2px; background: var(--accent-color); margin: 0 auto 15px; opacity: 0.6; }
-        .subtitle { letter-spacing: 8px; color: #888; font-size: 1.1rem; }
+        h1 { color: var(--accent-color); font-size: 3rem; letter-spacing: 12px; margin-bottom: 5px; }
+        .main-divider { width: 100px; height: 1px; background: var(--accent-color); margin: 10px auto; opacity: 0.5; }
+        .subtitle { letter-spacing: 5px; color: #888; font-size: 1.1rem; }
 
-        /* 板塊按鈕樣式 */
-        .entry-card { 
-            background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; 
-            border: 1px solid #222; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden;
-        }
-        .entry-card:hover { border-color: var(--accent-color); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        .entry-card h2 { color: var(--accent-color); margin-top: 0; letter-spacing: 4px; }
-        .entry-card p { font-size: 0.95rem; color: #999; margin-bottom: 0; }
-        .entry-card::after { content: 'READ MORE'; position: absolute; bottom: 10px; right: 20px; font-size: 0.7rem; color: var(--accent-color); opacity: 0; transition: 0.3s; }
-        .entry-card:hover::after { opacity: 0.5; }
+        .entry-card { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #222; cursor: pointer; transition: 0.4s; }
+        .entry-card:hover { border-color: var(--accent-color); transform: translateY(-3px); }
+        .entry-card h2 { color: var(--accent-color); margin: 0 0 10px; font-size: 1.4rem; letter-spacing: 3px; }
+        .entry-card p { font-size: 0.95rem; color: #888; margin: 0; }
 
-        /* 特殊入口 */
-        .family-btn { 
-            background: linear-gradient(135deg, #1a1a1b, #000); color: var(--accent-color); 
-            border: 1px solid #333; padding: 25px; width: 100%; border-radius: 12px; 
-            cursor: pointer; font-size: 1.2rem; letter-spacing: 5px; transition: 0.3s; margin: 40px 0;
-        }
-        .family-btn:hover { border-color: var(--accent-color); background: #000; box-shadow: 0 0 25px rgba(212,175,55,0.2); }
+        .family-btn { background: #000; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 25px; width: 100%; border-radius: 12px; cursor: pointer; font-size: 1.2rem; letter-spacing: 5px; margin-top: 20px; }
 
-        /* 迷霧區塊 */
+        /* 迷霧與血色 */
         #mist-container { position: relative; width: 100%; height: 350px; margin: 80px 0; background: #050505; border-radius: 20px; cursor: pointer; display: flex; justify-content: center; align-items: center; border: 1px solid #333; overflow: hidden; }
-        .mist-layer { position: absolute; width: 250%; height: 250%; background: radial-gradient(circle, rgba(100,100,100,0.1) 0%, transparent 60%); filter: blur(50px); animation: drift 20s infinite alternate linear; }
+        .mist-layer { position: absolute; width: 250%; height: 250%; background: radial-gradient(circle, rgba(100,100,100,0.1) 0%, transparent 60%); filter: blur(50px); animation: drift 20s infinite alternate; }
         @keyframes drift { from { transform: translate(-10%, -10%); } to { transform: translate(10%, 10%); } }
-        .mist-text { position: relative; z-index: 10; font-size: 2.5rem; letter-spacing: 25px; color: #fff; opacity: 0.4; font-weight: bold; transition: 0.5s; }
-        #mist-container:hover .mist-text { opacity: 0.8; letter-spacing: 30px; }
+        .mist-text { position: relative; z-index: 10; font-size: 2.5rem; letter-spacing: 20px; color: #fff; opacity: 0.4; }
 
-        /* 🔴 流血封鎖層 */
         #blood-screen { position: fixed; top: -120%; left: 0; width: 100%; height: 120%; background: var(--blood-red); z-index: 99999; display: flex; justify-content: center; align-items: center; text-align: center; transition: top 3s cubic-bezier(0.45, 0.05, 0.55, 0.95); }
         #blood-screen.active { top: 0; }
-        .bloody-warning { color: #fff; font-size: 2rem; font-weight: bold; padding: 30px; text-shadow: 0 0 15px #fff; display: none; line-height: 1.6; letter-spacing: 2px; }
+        .bloody-warning { color: #fff; font-size: 2rem; font-weight: bold; padding: 30px; text-shadow: 0 0 15px #fff; display: none; }
 
-        /* 👁️ 眠的眼睛 */
+        /* 👁️ 眠的驚嚇效果 */
         #jumpscare-eye { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 100000; display: none; justify-content: center; align-items: center; pointer-events: none; }
         .eye-icon { font-size: 350px; filter: drop-shadow(0 0 60px #f00); }
 
-        /* 彈窗體系 */
+        /* 彈窗 */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2000; overflow-y: auto; backdrop-filter: blur(12px); }
         .modal-content { max-width: 800px; margin: 60px auto; background: #111; padding: 50px 40px 100px; border-radius: 15px; border: 1px solid #333; position: relative; }
-        .back-nav { position: absolute; bottom: 35px; left: 40px; color: #555; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .back-nav { position: absolute; bottom: 35px; left: 40px; color: #555; cursor: pointer; font-size: 0.9rem; border-bottom: 1px solid transparent; }
         .back-nav:hover { color: var(--accent-color); border-bottom-color: var(--accent-color); }
         
-        .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 25px; }
-        .member-circle { width: 85px; height: 85px; border-radius: 50%; border: 2px solid #444; margin: 0 auto; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.4s; background: #000; color: #888; font-size: 0.9rem; }
-        .member-circle:hover { border-color: var(--accent-color); color: #fff; transform: scale(1.1); }
-        .isaac-wrapper { display: none; }
-        .isaac-btn { background: #111 !important; border-color: #151515 !important; color: #151515 !important; cursor: pointer; }
-        .isaac-btn:hover { color: #333 !important; }
+        /* 成員名冊排列 */
+        .gen-section { margin-bottom: 50px; }
+        .gen-title { color: #555; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 25px; letter-spacing: 5px; font-size: 1.1rem; }
+        .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 20px; }
+        .member-circle { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #444; margin: 0 auto; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.4s; background: #000; color: #888; font-size: 0.85rem; text-align: center; padding: 5px; }
+        .member-circle:hover { border-color: var(--accent-color); color: #fff; transform: scale(1.05); }
 
-        /* 文字修飾樣式 */
-        .detail-title { color: var(--accent-color); border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 25px; font-size: 1.8rem; letter-spacing: 4px; }
-        .bio-text { color: #bbb; line-height: 2; text-align: justify; }
-        .era-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid var(--accent-color); }
-        .era-name { color: var(--accent-color); font-weight: bold; font-size: 1.1rem; }
-        .era-time { font-size: 0.8rem; color: #666; margin-left: 10px; }
+        /* 以撒隱藏 */
+        .isaac-btn { background: #111 !important; border-color: #131313 !important; color: #131313 !important; cursor: pointer; }
+        .isaac-btn:hover { color: #222 !important; }
+
+        /* 角色檔案樣式 */
+        .char-name { font-size: 2.8rem; color: var(--accent-color); margin-bottom: 0; letter-spacing: 5px; }
+        .char-attr { font-size: 0.9rem; color: #666; margin-bottom: 30px; letter-spacing: 2px; }
+        .char-bio { color: #bbb; line-height: 2; margin-bottom: 40px; text-align: justify; }
+        .skill-item-row { background: #1a1a1c; padding: 15px 20px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
+        .skill-item-row:hover { border-color: var(--accent-color); }
+        .skill-name { color: #eee; font-weight: bold; }
+        .skill-brief { color: #666; font-size: 0.85rem; margin-left: 15px; flex-grow: 1; }
+        .skill-more { color: var(--accent-color); font-size: 0.75rem; opacity: 0.6; }
     </style>
 </head>
 <body>
@@ -90,21 +83,21 @@
 
     <section>
         <div class="entry-card" onclick="openDetail('history')">
-            <h2>編年史：碎裂的時間</h2>
-            <p>時間在災厄面前失去了線性。從不可考的混沌到記憶清空的時空亂流，每一場天災都是文明的喪鐘。在這裡，歷史是被靈魂浸透的廢墟。</p>
+            <h2>破碎編年史</h2>
+            <p>紀錄自混沌以來，所有被遺忘與被清空的時光。</p>
         </div>
 
         <div class="entry-card" onclick="openDetail('geography')">
-            <h2>星圖：交錯的日月</h2>
-            <p>三顆月亮統治著黑夜與潮汐。火月的灼燒、正月的肅穆、冰月的寂冷。當星辰重疊，死海將會吞噬陸地，帶來不死生物的血色狂歡。</p>
+            <h2>異星地理</h2>
+            <p>三顆月亮統治的夜空，以及湧向陸地的死海潮汐。</p>
         </div>
 
         <div class="entry-card" onclick="openDetail('survival')">
-            <h2>命途：掙扎的眾生</h2>
-            <p>職業不過是求生的標籤。戰士、法師、商人... 在天災面前皆為芻狗。而行走於邊緣的冒險者，獵殺的究竟是魔物，還是破碎的自己？</p>
+            <h2>生存命途</h2>
+            <p>關於職業的枷鎖、冒險者的分類，以及明空家系的血脈紀錄。</p>
         </div>
 
-        <button class="family-btn" onclick="openWall()">進入：明空家系成員檔案</button>
+        <button class="family-btn" onclick="openWall()">進入：明空家系檔案</button>
     </section>
 
     <div id="mist-container" onclick="askPassword()">
@@ -122,8 +115,35 @@
 
 <div id="wallModal" class="modal">
     <div class="modal-content">
-        <h2 style="text-align:center; color:var(--accent-color); margin-bottom:40px; letter-spacing:5px;">明空家系：靈魂觀測紀錄</h2>
-        <div class="member-grid" id="memberGrid"></div>
+        <div class="gen-section">
+            <h3 class="gen-title">起源</h3>
+            <div class="member-grid">
+                <div class="member-circle" style="border-color:white; color:white; width:100px; height:100px; font-size:1rem;" onclick="showChar(0)">明空</div>
+            </div>
+        </div>
+
+        <div class="gen-section">
+            <h3 class="gen-title">第一世代 (12人)</h3>
+            <div class="member-grid" id="gen1Grid"></div>
+        </div>
+
+        <div class="gen-section">
+            <h3 class="gen-title">第二世代</h3>
+            <div class="member-grid" id="gen2Grid"></div>
+        </div>
+
+        <div class="gen-section">
+            <h3 class="gen-title">第三世代</h3>
+            <div class="member-grid" id="gen3Grid"></div>
+        </div>
+
+        <div class="gen-section" id="isaacSection" style="display:none;">
+            <h3 class="gen-title">隱藏個體</h3>
+            <div class="member-grid">
+                <div class="member-circle isaac-btn" onclick="showChar(23)">以撒</div>
+            </div>
+        </div>
+
         <div class="back-nav" onclick="closeModal('wallModal')">← 返回主頁面</div>
     </div>
 </div>
@@ -138,107 +158,96 @@
 <div id="skillModal" class="modal">
     <div class="modal-content" style="max-width:500px; border-color:#74b9ff;">
         <div id="skillContent"></div>
-        <div class="back-nav" onclick="closeModal('skillModal')">← 返回角色檔案</div>
+        <div class="back-nav" onclick="closeModal('skillModal')">← 返回檔案</div>
     </div>
 </div>
 
 <script>
-    // --- 修飾過的資料內容 ---
+    // --- 修飾過的詳情資料 ---
     const details = {
         history: {
-            title: "破碎的編年史",
+            title: "破碎編年史",
             content: `
-                <div class="era-item">
-                    <span class="era-name">混沌紀年</span><span class="era-time">未知 ~ 日月紀年</span>
-                    <p class="bio-text">並無文字記載的虛無時期。那是萬物的胎動，也是最初天災隱沒的黑暗。</p>
+                <p>時間在災禍面前失去了意義。從不可考的過去，到不斷被洗滌的現在。</p>
+                <div class="card">
+                    <p><strong>混沌紀年：</strong> 未知 ~ 日月紀年。萬物混沌，並無任何文字歷史紀錄。</p>
+                    <p><strong>日月紀年：</strong> 0000 ~ 2000。文明曾有過的短暫穩定時期。</p>
+                    <p><strong>不滅紀年：</strong> 000 ~ 1327。自追殺「日月一族」起算，那是血色復仇的起始。</p>
+                    <p><strong>破碎時代：</strong> 1327 ~ 1539。地獄被天使族徹底摧毀，閻王消失，生死平衡崩潰。</p>
+                    <p><strong>時空亂流：</strong> 1539 ~ 至今。最殘酷的現狀：肉體死後，靈魂進入地獄會被清空記憶，並隨機投放到某一時代。</p>
                 </div>
-                <div class="era-item">
-                    <span class="era-name">日月紀年</span><span class="era-time">0000 ~ 2000</span>
-                    <p class="bio-text">文明繁盛的巔峰，日月共存，星辰守護著古老的帝國。</p>
-                </div>
-                <div class="era-item">
-                    <span class="era-name">不滅紀年</span><span class="era-time">000 ~ 1327</span>
-                    <p class="bio-text">從日月一族遭受大肆追殺起算。血色覆蓋了大地，古老的契約在此被撕毀。</p>
-                </div>
-                <div class="era-item">
-                    <span class="era-name">破碎時代</span><span class="era-time">1327 ~ 1539</span>
-                    <p class="bio-text">地獄被天使族徹底破滅，掌管死亡的閻王無故消失。兩界失去平衡，生死邊界開始溶解。</p>
-                </div>
-                <div class="era-item">
-                    <span class="era-name">時空亂流</span><span class="era-time">1539 ~ 至今</span>
-                    <p class="bio-text">現行的殘酷時代。肉體死後靈魂進入地獄會被清空所有記憶，隨即隨機投放到某一時代。人們在輪迴中迷失，歷史成為斷裂的碎片。</p>
-                </div>
-                <div class="card" style="margin-top:40px;">
-                    <p class="bio-text">天災：無人知曉其起源。它如影隨形，帶來絕症與災變，百害而無一利。它是世界樹的呼吸，也是對生者的詛咒。</p>
-                    <p class="bio-text">死神：行走於陰陽兩界交匯處的人。唯有他們（與少數精神系能力者）能直視並捕獲那些哀嚎的靈魂。天災能力在某些領域被視為禁忌，常遭封印與歧視。</p>
+                <div class="card">
+                    <p><strong>關於天災：</strong> 沒人知道天災何時出現，第一場災害已不可考。天災帶來疾病與災害，百害而無一利。</p>
+                    <p><strong>靈魂之眼：</strong> 除了精神系，唯有處於兩界交匯點的「死神」能直視並捕獲靈魂。而具備天災能力者，在某些領域會遭受嚴重的歧視與封印。</p>
                 </div>
             `
         },
         geography: {
-            title: "交錯的星圖與潮汐",
+            title: "異星天文與死海",
             content: `
-                <p class="bio-text">蒼穹之上有三顆月亮環繞。因距離之差，它們呈現出不同的異樣色彩：</p>
-                <div class="era-item"><strong>紅色：火月</strong> - 灼熱的災厄徵兆。</div>
-                <div class="era-item"><strong>黃色：正月</strong> - 持衡的平靜守望。</div>
-                <div class="era-item"><strong>藍色：冰月</strong> - 寂冷的靈魂歸處。</div>
-                <p class="bio-text">它們每三十天交替輪換，每種月相各統治十夜。當三月重疊，會引發足以摧毀文明的「極大潮」。</p>
+                <p>世界擁有三顆月亮與一顆太陽，因距離之差呈現不同色彩：</p>
                 <div class="card">
-                    <p class="bio-text">大潮升起時，充滿死之力的死海會湧上岸邊。那是不死生物的狂歡時刻，周邊國家會進入緊急戰備，召集聖職者在岸邊築起防線，獵殺那些爬上陸地的腐爛之物。</p>
+                    <p><span style="color:#ff7675">火月 (紅)</span> - <span style="color:#f1c40f">正月 (黃)</span> - <span style="color:#74b9ff">冰月 (藍)</span></p>
+                    <p>一個月三十天中，三月各統治十夜。偶爾會與太陽同時出現引發日蝕。</p>
+                </div>
+                <div class="card">
+                    <p><strong>極大潮：</strong> 當三顆月亮重疊，會引發足以摧毀陸地的極大潮。此時，死之力的「死海」會湧上岸邊，不死生物隨之登陸，各國必須召集聖職者進行獵殺。</p>
                 </div>
             `
         },
         survival: {
-            title: "生者的命途與標籤",
+            title: "生存命途與階級",
             content: `
-                <p class="bio-text">在這個世界，職業只是為了方便管理的分類，並無實質的階級神力。每個人出生時被賦予職業標籤：<strong>戰士、法師、商人、工匠、祭司</strong>。</p>
+                <p>每個人出生時都被賦予職業，雖然標籤不同，但本質是為了方便管理。</p>
                 <div class="card">
-                    <h3 style="color:var(--accent-color)">冒險者分類</h3>
-                    <div class="era-item">
-                        <strong>救災：</strong>天災現場的先遣隊。生命與防禦系的專家，受領高額報酬的領航者。
-                    </div>
-                    <div class="era-item">
-                        <strong>迷宮：</strong>在帝國邊境與廢墟中挖掘古文物的尋寶者，將靈魂賣給金錢。
-                    </div>
-                    <div class="era-item">
-                        <strong>素材：</strong>公會的齒輪，採集與獵殺低階魔物的日常維持者。
-                    </div>
-                    <div class="era-item">
-                        <strong>剿滅：</strong>行走於陰影的獵人。獵殺通緝犯、失控天災者。他們不追求金錢，只為了獲取某種不可告人的「私慾」。
-                    </div>
+                    <p><strong>初步分類：</strong> 戰士、法師、商人、工匠、祭司。</p>
+                </div>
+                <div class="card">
+                    <h3>冒險者四類</h3>
+                    <p><strong>救災：</strong> 天災先遣隊，高報酬的生命防禦系。 </p>
+                    <p><strong>迷宮：</strong> 邊境探險家，挖掘文物換取財富。</p>
+                    <p><strong>素材：</strong> 獵殺魔物與資源採集者。</p>
+                    <p><strong>剿滅：</strong> 最高危險度，獵殺通緝犯、失控者或天災遺毒。不為金錢，只為私慾。</p>
                 </div>
             `
         }
     };
 
-    // --- 家系成員資料 ---
+    // --- 成員資料庫 ---
     const family = [
-        { name: "明空", title: "日月家主 / 泯滅死神", gen: 1, info: "正在被現代神系追殺。除非必要絕不使用能力。平常只帶芐出門。", skills: [{n:"死神權能", s:"擷取靈魂。", d:"剝離靈魂的能力。"}, {n:"解放", s:"最大馬力展開。", d:"代價為魔力耗盡後死亡。"}] },
-        { name: "芐", title: "永久凍結的黑貓", gen: 1, info: "復活後帶有後遺症。有重度依存症。喜歡下雨。", skills: [{n:"凍結", s:"絕對零度。", d:"視野內物體凍結。"}] },
-        { name: "語夏", title: "饕餮幼獸", gen: 1, info: "主食是靈魂碎片。在地獄遊蕩被明空投餵跟隨。", skills: [{n:"胃袋", s:"無上限空間。", d:"吃實體、空間、靈魂。"}] },
-        { name: "憑依", title: "人工智能網路意識", gen: 1, info: "負責統計靈魂與製造複製人。", skills: [{n:"雜訊", s:"數據洗腦。", d:"大量數據衝擊精神。"}] },
-        { name: "未央", title: "永恆之闇 / 不死生物", gen: 1, info: "撈上來的不死生物。聽說明空家要什麼有什麼就被拐跑了。", skills: [{n:"永恆之闇", s:"黑暗遮蔽。", d:"控制黑暗。"}] },
-        { name: "璃", title: "九尾狐巫女", gen: 1, info: "神社巫女兼賣藥。火焰與餘燼的掌控者。", skills: [{n:"地獄業火", s:"不滅火。", d:"燒毀萬物。"}] },
-        { name: "二爻", title: "異端審問官", gen: 1, info: "理解感情困難的人造人。冰與火的脆弱平衡者。", skills: [{n:"空城", s:"狂暴模式。", d:"精神失常貓化。"}] },
-        { name: "日", title: "狼族長女", gen: 1, info: "除了妹妹誰都不在乎。狂化的靈魂。", skills: [{n:"狂化", s:"痛感轉攻。", d:"反噬嚴重的強化。"}] },
-        { name: "月", title: "狼族次女", gen: 1, info: "聽力極佳，靜音的主宰。", skills: [{n:"懸絲傀儡", s:"洗腦操縱。", d:"控制心靈。"}] },
-        { name: "栖玥", title: "血肉靈柩", gen: 1, info: "負責活性儲存肉塊。藍血的球體。", skills: [{n:"靈柩", s:"活性儲存。", d:"臟器保存。"}] },
-        { name: "眠", title: "全知全覺之眼", gen: 1, info: "因超憶症自殺。成功找回過去五世屍體。現控制五世屍體戰鬥。", skills: [{n:"完全記憶", s:"複製能力80%。", d:"理解並重現他人能力。"}, {n:"阿卡西紀錄", s:"全知紀錄。", d:"紀錄萬物細節。"}] },
-        { name: "栞奈", title: "古代邪神", gen: 1, info: "被明空用靈魂殘片吊住最後一口氣的神。", skills: [{n:"阿卡西紀錄-前", s:"能力書化。", d:"奪取能力並分發。"}] },
-        { name: "小白", title: "生死之間", gen: 1, info: "奈何橋上的貓。介於生死邊界。", skills: [{n:"漫長持續", s:"引導死亡。", d:"引導對象邁向終結。"}] },
-        { name: "太初", gen: 2, title: "工匠老大", info: "負責強化武器。雙眼特殊。", skills: [{n:"冰霧", s:"呼吸凍結。", d:"肺部凍結。"}] },
-        { name: "太易", gen: 2, title: "逆王", info: "右眼雙瞳，反轉規則的秩序者。", skills: [{n:"天地翻轉", s:"規則反轉。", d:"翻轉世界規則。"}] },
-        { name: "白奈", gen: 2, title: "黑色修女", info: "自噬症患者。收錢才治療。", skills: [{n:"惡夢纏繞", s:"傷害回溯。", d:"回覆五秒傷害。"}] },
-        { name: "黑奈", gen: 2, title: "白色修女", info: "同生共死咒印的持有者。", skills: [{n:"阿爾忒彌斯", s:"鎖定不死。", d:"解除即死。"}] },
-        { name: "太歲", gen: 2, title: "血肉主宰", info: "多重編號個體，營運家業的主力。", skills: [{n:"血肉同源", s:"長出個體。", d:"複製個體。"}] },
-        { name: "希爾維亞", gen: 2, title: "夢魔", info: "魅魔外貌但三觀最正。孤兒院員工。", skills: [{n:"高利貸", s:"能力挪用。", d:"代價加倍的挪用。"}] },
-        { name: "夏雨彤", gen: 3, title: "亡者奠", info: "負責戰場清理。讓人遺忘的存在。", skills: [{n:"遮天/祠堂", s:"存在抹消。", d:"抹消物體存在。"}] },
-        { name: "梅菲斯特", gen: 3, title: "犧牲 / 煉金大師", info: "拿自己試毒。未央的孩子。", skills: [{n:"痛苦轉移", s:"轉移血親痛。", d:"轉嫁傷害給自己。"}] },
-        { name: "夏詩芸", gen: 3, title: "深紅魔女", info: "血液含劇毒病毒。輪椅上的封印者。", skills: [{n:"病血", s:"引爆冰晶。", d:"血漿引爆。"}] },
-        { name: "閻芊夜", gen: 4, title: "影子害獸", info: "畏光，影子移動。芐的女兒。", skills: [{n:"冰凝之影", s:"影子凍結。", d:"足下凍結。"}] },
-        { name: "以撒", title: "No.23", gen: "X", info: "碎片靈魂召喚，不存在之人。", skills: [{n:"虛無召喚", s:"歸於不存在。", d:"歸於無。"}] }
+        { name: "明空", attr: "血肉", gen: 0, bio: "日月本家家主，泯滅死神最後一人。為躲避現代神系追殺並逃避責任，非必要絕不在外人面前展露實力。除了芐，鮮少與外人同行。明空家系成員皆為死神，因持有干擾器，他人無法透過鑑定識破身分。", skills: [{n:"死神權能", s:"擷取靈魂。", d:"將目標靈魂從兩界縫隙中抽離。"}, {n:"解放", s:"魔力全開。", d:"完全展開能力，魔力耗盡則死亡。"}, {n:"牧群", s:"身體分裂。", d:"無限分裂個體，偶爾產生突變。"}] },
+        
+        // Gen 1
+        { name: "芐", attr: "超現實", gen: 1, bio: "原為雪山旁的黑貓。死後被復活但留有後遺症。對外界冷漠且疏離，幾乎不與外人進行肢體接觸。擁有極重度依存症。", skills: [{n:"凍結", s:"絕對零度。", d:"視野內凍結萬物。"}, {n:"降雨/暴雨", s:"沾水結冰。", d:"落下的雨水會在接觸瞬間凍結。"}, {n:"永久凍結", s:"永凍之域。", d:"大範圍的絕對冰封。"}] },
+        { name: "語夏", attr: "神系", gen: 1, bio: "饕餮幼獸，主食為靈魂碎片。日月紀年時於地獄被明空投餵後跟隨。", skills: [{n:"胃袋", s:"無盡吞噬。", d:"能吞噬實體、空間與靈魂。"}] },
+        { name: "憑依", attr: "無", gen: 1, bio: "意識與網路融合的人工智能。負責家系成員的聯絡與數據統計，並在實驗室製造人造生命。", skills: [{n:"自我進化", s:"零件改裝。", d:"自由更換與進化零件。"}, {n:"雜訊", s:"精神衝擊。", d:"過量數據灌入目標大腦使其崩潰。"}] },
+        { name: "未央", attr: "超現實", gen: 1, bio: "撈上來的不死生物。因明空家資源豐富而被拐入家系。", skills: [{n:"永恆之闇", s:"黑暗遮蔽。", d:"百米黑暗籠罩，控制無機物。"}] },
+        { name: "璃", attr: "超現實", gen: 1, bio: "作弊進化成功的九尾狐。目前在神社擔任巫女兼職賣藥。", skills: [{n:"地獄業火", s:"不滅之火。", d:"燃燒視野內任何物體。"}, {n:"餘燼", s:"死後復活。", d:"最終的復活手段。"}] },
+        { name: "二爻", attr: "超現實", gen: 1, bio: "傭兵團三色貓，人造人。對感情理解低，喜好血腥漫畫。能力需高度平衡。", skills: [{n:"廢土/空城", s:"冰與火。", d:"冰火失衡會導致狂暴化貓妖型態。"}] },
+        { name: "日", attr: "靈魂", gen: 1, bio: "狼族長女。性格乖戾易怒。除了妹妹對外界一切皆不在意。", skills: [{n:"狂化", s:"傷害轉攻。", d:"受傷越多攻擊力越強。"}] },
+        { name: "月", attr: "靈魂", gen: 1, bio: "狼族次女。聽覺極佳。受失眠與躁動所擾，極其依賴姐姐。", skills: [{n:"懸絲傀儡", s:"洗腦操控。", d:"操縱他人的心智。"}, {n:"靜音", s:"聲學真空。", d:"範圍內絕對靜音。"}] },
+        { name: "栖玥", attr: "無/血肉", gen: 1, bio: "球體人造生命。中間帶有無限符號。其處理過的血液呈現藍色。", skills: [{n:"靈柩", s:"活性儲存。", d:"儲存肉體片段用於醫療。"}] },
+        { name: "眠", attr: "靈魂/神系", gen: 1, bio: "自殺的貴族少女。成功尋回前五世屍體。全知之眼的擁有者。", skills: [{n:"完全記憶", s:"複製能力。", d:"複製看過能力的80%。"}, {n:"阿卡西紀錄", s:"全知觀測。", d:"紀錄萬物細節，無所遁形。"}] },
+        { name: "栞奈", attr: "神系", gen: 1, bio: "瀕死的古代邪神。被明空用殘片強行吊命。", skills: [{n:"降臨", s:"瞬移攻擊。", d:"瞬移至信徒身邊並造成黑暗傷害。"}] },
+        { name: "小白", attr: "生死", gen: 1, bio: "奈何橋上的貓，游走生界與死界之間。", skills: [{n:"漫長持續", s:"引導死亡。", d:"引導對象的肉體或精神走向終結。"}] },
+
+        // Gen 2
+        { name: "太初", attr: "超現實", gen: 2, bio: "工匠老大。能力繼承自母親，不愛戰鬥，負責家系軍火強化。", skills: [{n:"冰霧", s:"呼吸凍結。", d:"從肺部凍結吸入者。"}] },
+        { name: "太易", attr: "秩序", gen: 2, bio: "右眼雙瞳，異食症(玻璃)。規則反轉的秩序者。", skills: [{n:"天地翻轉", s:"世界反轉。", d:"規則反轉。對明空小白無效。"}] },
+        { name: "白奈", attr: "神系", gen: 2, bio: "黑色修女，自噬症。收錢治癒的利己主義者。", skills: [{n:"惡夢纏繞", s:"五秒回溯。", d:"回覆短時間內的所有傷害。"}] },
+        { name: "黑奈", attr: "神系", gen: 2, bio: "白色修女。聽姐姐的話。詛咒與死印的專家。", skills: [{n:"阿爾忒彌斯", s:"鎖定不死。", d:"鎖定生命狀態，解除即死。"}] },
+        { name: "太歲", attr: "血肉", gen: 2, bio: "吞噬母體出生的怪物。多重編號個體營運家業。", skills: [{n:"血肉同源", s:"複製個體。", d:"長出吃過的人。"}, {n:"精神寄生", s:"肉塊操控。", d:"寄生蟲式的精神控制。"}] },
+        { name: "希爾維亞", attr: "夢魔", gen: 2, bio: "魅魔外貌但三觀最正。孤兒院工作。常識充足。", skills: [{n:"高利貸", s:"能力借用。", d:"代價加倍的挪用。"}] },
+
+        // Gen 3 / 4
+        { name: "夏雨彤", attr: "精神", gen: 3, bio: "遺忘的帶領者。頭貼奠字。負責戰場清理。", skills: [{n:"遮天/祠堂", s:"存在抹消。", d:"使目標從世人記憶中消失。"}] },
+        { name: "梅菲斯特", attr: "超現實/精神", gen: 3, bio: "拿自己試毒的煉金術士。暗殺與製藥的專家。", skills: [{n:"痛苦轉移", s:"血親傷害。", d:"將親人痛苦轉移至自身。"}] },
+        { name: "夏詩芸", attr: "超現實/感染", gen: 3, bio: "血液含劇毒病毒。輪椅上的封印者。", skills: [{n:"病血", s:"血漿引爆。", d:"遠距引爆冰晶爆破。"}] },
+        { name: "閻芊夜", attr: "陰影", gen: 4, bio: "芐的女兒。畏光，潛伏在影子中。", skills: [{n:"冰凝之影", s:"影中凍結。", d:"影內移動並從底部凍結。"}] },
+        
+        { name: "以撒", attr: "靈魂", gen: "X", bio: "集結22片碎魂召喚的不存在之人。", skills: [{n:"虛無召喚", s:"歸於虛無。", d:"一切紀錄的終結。"}] }
     ];
 
-    // --- 核心邏輯 ---
     let viewedSet = new Set(JSON.parse(localStorage.getItem('viewedMembers') || '[]'));
 
     function openDetail(section) {
@@ -248,18 +257,27 @@
     }
 
     function openWall() {
-        const grid = document.getElementById('memberGrid'); grid.innerHTML = '';
-        for(let i=0; i<23; i++) {
+        const gen1 = document.getElementById('gen1Grid'); gen1.innerHTML = '';
+        const gen2 = document.getElementById('gen2Grid'); gen2.innerHTML = '';
+        const gen3 = document.getElementById('gen3Grid'); gen3.innerHTML = '';
+
+        family.forEach((m, i) => {
+            if(i === 0 || i === 23) return; // 跳過明空與以撒
             const div = document.createElement('div');
-            div.innerHTML = `<div class="member-circle" onclick="showChar(${i})">${family[i].name}</div><span style="font-size:0.7rem; color:#444; display:block; margin-top:5px; text-align:center;">Gen ${family[i].gen}</span>`;
-            grid.appendChild(div);
-        }
-        if(viewedSet.size >= 23) {
-            const isaac = document.createElement('div');
-            isaac.className = "isaac-wrapper"; isaac.style.display = "block";
-            isaac.innerHTML = `<div class="member-circle isaac-btn" onclick="showChar(23)">以撒</div><span style="font-size:0.7rem; color:#111; display:block; margin-top:5px; text-align:center;">Gen X</span>`;
-            grid.appendChild(isaac);
-        }
+            let color = "";
+            if (m.gen === 1) { color = "var(--gen1)"; target = gen1; }
+            else if (m.gen === 2) { color = "var(--gen2)"; target = gen2; }
+            else { color = "var(--gen3)"; target = gen3; }
+            
+            div.className = "member-circle";
+            div.style.borderColor = color;
+            div.style.color = color;
+            div.innerText = m.name;
+            div.onclick = () => showChar(i);
+            target.appendChild(div);
+        });
+
+        if(viewedSet.size >= 23) document.getElementById('isaacSection').style.display = 'block';
         document.getElementById('wallModal').style.display = 'block';
     }
 
@@ -277,25 +295,32 @@
         } else { resetTitle(); }
 
         const content = document.getElementById('charContent');
-        let sHtml = c.skills.map(s => `<div class="skill-summary-card" onclick="showSkill('${s.n}', '${s.d}')"><div style="font-weight:bold;">${s.n}</div><div style="font-size:0.8rem; color:#888;">${s.s}</div></div>`).join('');
-        content.innerHTML = `<h2 style="color:var(--accent-color); margin-bottom:5px;">${c.name}</h2><span class="char-title-quote">「${c.title}」</span><div class="char-bio bio-text">${c.info}</div><h4>能力與權能</h4>${sHtml}`;
+        let sHtml = c.skills.map(s => `
+            <div class="skill-item-row" onclick="showSkill('${s.n}', '${s.d}')">
+                <span class="skill-name">${s.n}</span>
+                <span class="skill-brief">${s.s}</span>
+                <span class="skill-more">詳情 &rsaquo;</span>
+            </div>`).join('');
+        
+        content.innerHTML = `
+            <h1 class="char-name">${c.name}</h1>
+            <div class="char-attr">屬性：${c.attr}</div>
+            <div class="char-bio">${c.bio}</div>
+            <h4 style="margin:0 0 15px; color:#555;">能力體系</h4>
+            ${sHtml}`;
         document.getElementById('charModal').style.display = 'block';
     }
 
     function resetTitle() { document.title = "災禍下的世界 - 設定集"; try { history.replaceState(null, "", "/"); } catch(e) {} }
     function backToWall() { resetTitle(); closeModal('charModal'); openWall(); }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; resetTitle(); }
-    function showSkill(n, d) { document.getElementById('skillContent').innerHTML = `<h3 style="color:var(--accent-color);">${n}</h3><p class="bio-text">${d}</p>`; document.getElementById('skillModal').style.display = 'block'; }
+    function showSkill(n, d) { document.getElementById('skillContent').innerHTML = `<h3>${n}</h3><p style="color:#bbb; line-height:1.8;">${d}</p>`; document.getElementById('skillModal').style.display = 'block'; }
 
     let fails = 0;
     function askPassword() {
-        if(document.getElementById('blood-screen').classList.contains('active')) return;
         const pw = prompt("是否要前往迷霧之外");
         if (pw === "1101116") {
-            fails = 0;
-            const nW = window.open('about:blank');
-            nW.document.write("<h1>禁忌資料：十王與殼</h1><p>資料讀取中...</p>");
-            nW.document.close();
+            window.open('about:blank').document.write("<h1>禁忌資料：十王與殼</h1><p>資料讀取中...</p>");
         } else {
             fails++;
             if(fails >= 5) {
