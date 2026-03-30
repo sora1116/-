@@ -1,19 +1,133 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>I'm watching you</title>
-    <script>
-      // 這是禁忌的傳送術：當 404 發生時，自動去抓 index.html 的內容來顯示
-      fetch('index.html')
-        .then(response => response.text())
-        .then(html => {
-          document.open();
-          document.write(html);
-          document.close();
-        });
-    </script>
-  </head>
-  <body>
-  </body>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">災禍下的世界 - 設定集</title>
+    <style>
+        :root {
+            --bg-color: #0b0b0c; --card-bg: #161618; --accent-color: #d4af37; 
+            --text-color: #c0c0c0; --danger-color: #960000; --blood-red: #660000;
+            --gen1: #a29bfe; --gen2: #81ecec; --gen3: #ff7675; --gen4: #fab1a0;
+        }
+        * { box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: sans-serif; margin: 0; line-height: 1.7; overflow-x: hidden; }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; transition: filter 1s; }
+        header { text-align: center; border-bottom: 2px solid var(--accent-color); padding-bottom: 20px; margin-bottom: 50px; }
+        h1 { color: var(--accent-color); font-size: 2.5rem; letter-spacing: 6px; }
+        h2 { color: var(--accent-color); border-left: 4px solid var(--accent-color); padding-left: 15px; margin: 40px 0 20px; }
+        .card { background: var(--card-bg); padding: 25px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #222; }
+        .family-entry-btn { background: #111; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 20px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 1.2rem; }
+        #mist-container { position: relative; width: 100%; height: 300px; margin: 60px 0; background: #050505; border-radius: 20px; cursor: pointer; display: flex; justify-content: center; align-items: center; border: 1px solid #333; overflow: hidden; }
+        .mist-layer { position: absolute; width: 250%; height: 250%; background: radial-gradient(circle, rgba(100,100,100,0.15) 0%, transparent 60%); filter: blur(50px); animation: drift 15s infinite alternate; }
+        @keyframes drift { from { transform: translate(-20%, -20%); } to { transform: translate(10%, 10%); } }
+        .mist-text { position: relative; z-index: 10; font-size: 2.8rem; letter-spacing: 20px; color: #fff; opacity: 0.6; font-weight: bold; }
+        #blood-screen { position: fixed; top: -110%; left: 0; width: 100%; height: 110%; background: var(--blood-red); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: top 3s; }
+        #blood-screen.active { top: 0; }
+        .bloody-warning { color: #fff; font-size: 2.2rem; font-weight: bold; text-align: center; display: none; }
+        #jumpscare-eye { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 99999; display: none; justify-content: center; align-items: center; }
+        .eye-icon { font-size: 300px; filter: drop-shadow(0 0 50px #f00); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; overflow-y: auto; backdrop-filter: blur(8px); }
+        .modal-content { max-width: 800px; margin: 40px auto; background: #1a1a1b; padding: 40px 30px 80px; border-radius: 15px; border: 1px solid #333; position: relative; }
+        .back-nav { position: absolute; bottom: 30px; left: 30px; color: #555; cursor: pointer; font-size: 0.9rem; }
+        .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 20px; }
+        .member-circle { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #444; margin: 0 auto; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.4s; background: #111; }
+        .isaac-wrapper { display: none; }
+        .isaac-btn { background: #1a1a1b !important; border-color: #1d1d1e !important; color: #1e1e1f !important; }
+        .char-title-quote { font-style: italic; color: var(--accent-color); font-size: 1.2rem; margin-bottom: 20px; display: block; }
+        .char-bio { background: #111; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 2px solid #333; }
+        .skill-summary-card { background: #222; padding: 15px; border-radius: 5px; margin-bottom: 10px; border-left: 3px solid var(--accent-color); cursor: pointer; }
+    </style>
+</head>
+<body>
+<div id="jumpscare-eye"><div class="eye-icon">👁️‍🗨️</div></div>
+<div id="blood-screen"><div class="bloody-warning" id="warning-text">世界樹感知到你的去向<br>並封鎖了你的道路</div></div>
+<div class="container" id="main-content">
+    <header><h1>災禍下的世界</h1><p>第一部分：生存法則與家系名冊</p></header>
+    <section><div class="card"><h2>⚖️ 生存者：明空一族</h2><button class="family-entry-btn" onclick="openWall()">進入：明空家系成員檔案</button></div></section>
+    <div id="mist-container" onclick="askPassword()"><div class="mist-layer"></div><div class="mist-text">迷霧籠罩</div></div>
+</div>
+<div id="wallModal" class="modal"><div class="modal-content"><h2 style="text-align:center; color:var(--accent-color);">明空家系檔案</h2><div class="member-grid" id="memberGrid"></div><div class="back-nav" onclick="closeModal('wallModal')">← 回到主頁面</div></div></div>
+<div id="charModal" class="modal"><div class="modal-content"><div id="charContent"></div><div class="back-nav" onclick="backToWall()">← 回到成員名冊</div></div></div>
+<div id="skillModal" class="modal"><div class="modal-content" style="max-width:500px; border-color:#74b9ff;"><div id="skillContent"></div><div class="back-nav" onclick="closeModal('skillModal')">← 返回角色生平</div></div></div>
+<script>
+    const family = [
+        { name: "明空", title: "日月家主", gen: 1, info: "日月本家家主。逃避責任中。", skills: [{n:"死神權能", s:"擷取靈魂。", d:"核心權能。"}] },
+        { name: "芐", title: "永久凍結的黑貓", gen: 1, info: "明空撿到的黑貓。有重度依存症。", skills: [{n:"凍結", s:"絕對零度。", d:"低溫凍結。"}] },
+        { name: "語夏", title: "饕餮幼獸", gen: 1, info: "以靈魂碎片為主食。", skills: [{n:"胃袋", s:"無上限空間。", d:"吞噬一切。"}] },
+        { name: "憑依", title: "人工智能", gen: 1, info: "網路意識。負責製造人造生命。", skills: [{n:"雜訊", s:"數據洗腦。", d:"數據干擾。"}] },
+        { name: "未央", title: "永恆之闇", gen: 1, info: "撈上來的不死生物。", skills: [{n:"永恆之闇", s:"黑暗遮蔽。", d:"黑暗控制。"}] },
+        { name: "璃", title: "九尾狐巫女", gen: 1, info: "在神社當巫女順便賣藥。", skills: [{n:"地獄業火", s:"不滅之火。", d:"燒毀萬物。"}] },
+        { name: "二爻", title: "三色貓", gen: 1, info: "對感情理解不高。", skills: [{n:"空城", s:"精神狂暴。", d:"狂戰模式。"}] },
+        { name: "日", title: "狼族長女", gen: 1, info: "除了妹妹誰都不在乎。", skills: [{n:"狂化", s:"痛感增幅。", d:"受傷越強。"}] },
+        { name: "月", title: "狼族次女", gen: 1, info: "聽力極佳。喜歡姐姐。", skills: [{n:"懸絲傀儡", s:"精神洗腦。", d:"操縱心靈。"}] },
+        { name: "栖玥", title: "血肉靈柩", gen: 1, info: "外觀是球體。血液藍色。", skills: [{n:"靈柩", s:"活性儲存。", d:"儲存肉塊。"}] },
+        { name: "眠", title: "全知全覺之眼", gen: 1, info: "因超憶症自殺。成功把過去五世的屍體都找了回來。現控制五世屍體戰鬥。", skills: [{n:"完全記憶", s:"複製能力。", d:"複製看過的能力。"}, {n:"阿卡西紀錄", s:"全知感應。", d:"紀錄萬物細節。"}] },
+        { name: "栞奈", title: "古代邪神", gen: 1, info: "快消散前被明空吊命。", skills: [{n:"阿卡西紀錄-前", s:"能力剝奪。", d:"剝奪能力變書。"}] },
+        { name: "小白", title: "生死之間", gen: 1, info: "介於生死之間。", skills: [{n:"萌芽/綻放", s:"死亡引導。", d:"引導終局。"}] },
+        { name: "太初", title: "工匠老大", gen: 2, info: "負責強化武器。", skills: [{n:"冰霧", s:"呼吸凍結。", d:"凍結肺部。"}] },
+        { name: "太易", title: "逆王", gen: 2, info: "右眼雙瞳，吃玻璃。", skills: [{n:"天地翻轉", s:"規則反轉。", d:"規則翻轉。"}] },
+        { name: "白奈", title: "黑色修女", gen: 2, info: "收錢才治療。", skills: [{n:"惡夢纏繞", s:"五秒回溯。", d:"回覆五秒傷害。"}] },
+        { name: "黑奈", title: "白色修女", gen: 2, info: "詛咒系修女。", skills: [{n:"阿爾忒彌斯", s:"絕對不死。", d:"解除即死。"}] },
+        { name: "太歲", title: "血肉主宰", gen: 2, info: "多重編號個體。", skills: [{n:"血肉同源", s:"長出個體。", d:"複製個體。"}] },
+        { name: "希爾維亞", title: "夢魔", gen: 2, info: "魅魔外貌但三觀最正。", skills: [{n:"高利貸", s:"能力挪用。", d:"代價加倍。"}] },
+        { name: "夏雨彤", title: "亡者奠", gen: 3, info: "讓人遺忘的存在。", skills: [{n:"遮天/祠堂", s:"存在抹消。", d:"抹消存在。"}] },
+        { name: "梅菲斯特", title: "犧牲", gen: 3, info: "煉金術士。拿自己試毒。", skills: [{n:"痛苦轉移", s:"轉移血親痛。", d:"轉嫁傷害。"}] },
+        { name: "夏詩芸", title: "深紅魔女", gen: 3, info: "血液含劇毒病毒。", skills: [{n:"病血", s:"引爆冰晶。", d:"血漿引爆。"}] },
+        { name: "閻芊夜", title: "影子害獸", gen: 4, info: "畏光，待在影子裡。", skills: [{n:"冰凝之影", s:"影子凍結。", d:"從影凍結。"}] },
+        { name: "以撒", title: "No.23", gen: "X", info: "碎片靈魂召喚。", skills: [{n:"虛無召喚", s:"歸於不存在。", d:"歸於無。"}] }
+    ];
+
+    // --- 關鍵修正：記憶功能 ---
+    function getViewed() {
+        const saved = localStorage.getItem('viewedMembers');
+        return saved ? new Set(JSON.parse(saved)) : new Set();
+    }
+    let viewedSet = getViewed();
+
+    function openWall() {
+        const grid = document.getElementById('memberGrid'); grid.innerHTML = '';
+        for(let i=0; i<23; i++) {
+            const div = document.createElement('div');
+            div.innerHTML = `<div class="member-circle" onclick="showChar(${i})">${family[i].name}</div><span style="font-size:0.7rem; color:#555; display:block; margin-top:5px; text-align:center;">Gen ${family[i].gen}</span>`;
+            grid.appendChild(div);
+        }
+        if(viewedSet.size >= 23) {
+            const isaac = document.createElement('div');
+            isaac.style.display = "block";
+            isaac.innerHTML = `<div class="member-circle isaac-btn" onclick="showChar(23)">以撒</div><span style="font-size:0.7rem; color:#111; display:block; margin-top:5px; text-align:center;">Gen X</span>`;
+            grid.appendChild(isaac);
+        }
+        document.getElementById('wallModal').style.display = 'block';
+    }
+
+    function showChar(idx) {
+        if(idx < 23) {
+            viewedSet.add(idx);
+            localStorage.setItem('viewedMembers', JSON.stringify(Array.from(viewedSet)));
+        }
+        const c = family[idx];
+        if (c.name === "眠") {
+            document.getElementById('jumpscare-eye').style.display = 'flex';
+            setTimeout(() => { document.getElementById('jumpscare-eye').style.display = 'none'; }, 100);
+            document.title = "I'm watching you";
+            try { history.replaceState(null, "", "Im-watching-you"); } catch(e) {}
+        } else { resetTitle(); }
+        const content = document.getElementById('charContent');
+        let sHtml = c.skills.map(s => `<div class="skill-summary-card" onclick="showSkill('${s.n}', '${s.d}')"><div style="font-weight:bold;">${s.n}</div><div style="font-size:0.8rem; color:#888;">${s.s}</div></div>`).join('');
+        content.innerHTML = `<h2 style="color:var(--accent-color);">${c.name}</h2><span class="char-title-quote">「${c.title}」</span><div class="char-bio">${c.info}</div><h4>能力與權能</h4>${sHtml}`;
+        document.getElementById('charModal').style.display = 'block';
+    }
+
+    function resetTitle() { document.title = "災禍下的世界 - 設定集"; try { history.replaceState(null, "", "/"); } catch(e) {} }
+    function backToWall() { resetTitle(); closeModal('charModal'); openWall(); }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; resetTitle(); }
+    function showSkill(n, d) { document.getElementById('skillContent').innerHTML = `<h3>${n}</h3><p>${d}</p>`; document.getElementById('skillModal').style.display = 'block'; }
+    function askPassword() {
+        const pw = prompt("是否要前往迷霧之外");
+        if (pw === "1101116") { window.open('about:blank').document.write("禁忌資料內容..."); }
+        else { alert("迷霧拒絕了你"); }
+    }
+</script>
+</body>
 </html>
